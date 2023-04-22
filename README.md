@@ -5,6 +5,6 @@ Playing with OpenAI API by building a ChatGPT clone with TypeScript, React and N
 <br />
 🚧 Building in progress 🚧 
 
-<br /><br />
+<br />
 
 ![UI preview](./public/preview.png)
