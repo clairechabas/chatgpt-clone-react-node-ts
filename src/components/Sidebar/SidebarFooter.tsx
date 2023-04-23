@@ -2,9 +2,7 @@ import { Button, Flex, Icon, Image, Tag, Text } from '@chakra-ui/react'
 import React from 'react'
 import { FiUser } from 'react-icons/fi'
 
-type SidebarFooterProps = {}
-
-const SidebarFooter: React.FC<SidebarFooterProps> = () => {
+const SidebarFooter: React.FC = () => {
   return (
     <Flex direction="column" align="flex-start" width="full">
       <Button

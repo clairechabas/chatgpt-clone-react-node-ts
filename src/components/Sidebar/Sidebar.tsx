@@ -1,12 +1,25 @@
 import { Button, Flex, Icon, Text } from '@chakra-ui/react'
 import React from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
-import Chats from './Chats'
+import { Message } from '../../App'
+import ChatsHistory from './ChatsHistory'
 import SidebarFooter from './SidebarFooter'
 
-type SidebarProps = {}
+type SidebarProps = {
+  handleCreateNewChat: () => void
+  handleSelectExistingChat: (title: string) => void
+  previousMessages: Message[]
+}
 
-const Sidebar: React.FC<SidebarProps> = () => {
+const Sidebar: React.FC<SidebarProps> = ({
+  previousMessages,
+  handleCreateNewChat,
+  handleSelectExistingChat,
+}) => {
+  const chatTitles = Array.from(
+    new Set(previousMessages.map((prev) => prev.title))
+  )
+
   return (
     <Flex
       direction="column"
@@ -47,12 +60,16 @@ const Sidebar: React.FC<SidebarProps> = () => {
                 lineHeight={20}
                 _hover={{ bg: 'hsla(240,9%,59%,.1)' }}
                 transition="all 0.2s ease-in-out"
+                onClick={handleCreateNewChat}
               >
                 <Icon as={AiOutlinePlus} mr={3} />
                 <Text fontSize="0.875rem">New chat</Text>
               </Button>
 
-              <Chats />
+              <ChatsHistory
+                handleSelectExistingChat={handleSelectExistingChat}
+                titles={chatTitles}
+              />
             </Flex>
 
             <SidebarFooter />

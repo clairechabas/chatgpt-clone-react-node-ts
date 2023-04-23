@@ -3,21 +3,28 @@ import { useEffect, useState } from 'react'
 import ChatArea from './components/ChatArea/ChatArea'
 import Sidebar from './components/Sidebar/Sidebar'
 
-interface Message {
+export interface Message {
   title: string
   role: 'user' | 'assistant'
   content: string
 }
+const defaultMessage: Message = {
+  title: '',
+  role: 'user',
+  content: '',
+}
 
 const App = () => {
-  const [messageContent, setMessageContent] = useState('')
   const [currentTitle, setCurrentTitle] = useState('')
   const [previousMessages, setPreviousMessages] = useState<Message[]>([])
-  const [message, setMessage] = useState<Message>({
-    title: '',
-    role: 'user',
-    content: '',
-  })
+  const [messageContent, setMessageContent] = useState('')
+  const [message, setMessage] = useState<Message>(defaultMessage)
+
+  const createNewChat = () => {
+    setMessage(defaultMessage)
+    setMessageContent('')
+    setCurrentTitle('')
+  }
 
   const sendMessage = async () => {
     const options = {
@@ -67,11 +74,22 @@ const App = () => {
     }
   }, [message, currentTitle])
 
+  const selectExistingChat = (title: string) => {
+    setCurrentTitle(title)
+    setMessage(defaultMessage)
+    setMessageContent('')
+  }
+
   return (
     <Flex width="full" height="full">
-      <Sidebar />
+      <Sidebar
+        handleSelectExistingChat={selectExistingChat}
+        previousMessages={previousMessages}
+        handleCreateNewChat={createNewChat}
+      />
 
       <ChatArea
+        previousMessages={previousMessages}
         currentTitle={currentTitle}
         messageContent={messageContent}
         setMessageContent={setMessageContent}

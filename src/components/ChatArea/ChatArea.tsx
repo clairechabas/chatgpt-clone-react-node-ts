@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react'
 import React from 'react'
 import { FiSend } from 'react-icons/fi'
+import { Message } from '../../App'
 import Messages from './Messages'
 
 type ChatAreaProps = {
@@ -16,6 +17,7 @@ type ChatAreaProps = {
   messageContent: string
   setMessageContent: (value: string) => void
   handleSendMessage: () => void
+  previousMessages: Message[]
 }
 
 const ChatArea: React.FC<ChatAreaProps> = ({
@@ -23,10 +25,14 @@ const ChatArea: React.FC<ChatAreaProps> = ({
   messageContent,
   setMessageContent,
   handleSendMessage,
+  previousMessages,
 }) => {
   return (
     <Flex direction="column" w="full" p="24px">
-      <Messages currentTitle={currentTitle} />
+      <Messages
+        currentTitle={currentTitle}
+        previousMessages={previousMessages}
+      />
 
       <Box px="16px">
         <InputGroup>
